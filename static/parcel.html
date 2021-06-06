@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快递号拼接</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        #app {
+            width: 100%;
+            display: flex;
+        }
+
+        .left,
+        .right {
+            width: 50%;
+            box-sizing: border-box;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="left">
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header">
+                        <span>快递号Excel上传</span>
+                    </div>
+                </template>
+                <div>
+                    <input type="file" ref="parcelList" @change="getFile" />
+                </div>
+            </el-card>
+
+            <div style="width: 100%;height: 50px;"></div>
+
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header">
+                        <span>订单号Excel上传</span>
+                    </div>
+                </template>
+                <div>
+                    <input type="file" ref="orderList" @change="getFile1" />
+                </div>
+            </el-card>
+
+            <div style="width: 100%;height: 50px;"></div>
+
+            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器
+            </el-button>
+        </div>
+        <div class="right">
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header" style="display: flex;justify-content: space-between;align-items: center;">
+                        <span>拼接结果</span>
+                    </div>
+                </template>
+                <div>
+                    <textarea cols="30" rows="40" style="width: 100%;" id="result">{{result}}</textarea>
+                </div>
+            </el-card>
+        </div>
+    </div>
+    <script>
+        const App = {
+            data() {
+                return {
+                    parcelList: null,
+                    orderList: null,
+                    result: '',
+                };
+            },
+            methods: {
+                getFile() {
+                    let files = this.$refs.parcelList.files[0];
+                    this.parcelList = files;
+                },
+                getFile1() {
+                    let files = this.$refs.orderList.files[0];
+                    this.orderList = files;
+                },
+                submitUpload() {
+                    const formdata = new window.FormData();
+                    formdata.append('parcelList', this.parcelList);
+                    formdata.append('orderList', this.orderList);
+                    axios({
+                        method: 'POST',
+                        url: 'http://localhost:8000/parcel/matchParcelCode',
+                        data: formdata,
+                        headers: {
+                            'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+                        }
+                    }).then((res) => {
+                        this.result = res.data.data.csvTitle;
+                    })
+                },
+            }
+        };
+        const app = Vue.createApp(App);
+        app.use(ElementPlus);
+        app.mount("#app");
+    </script>
+</body>
+
+</html>

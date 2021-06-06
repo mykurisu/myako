@@ -19,7 +19,7 @@ async function bootstrap() {
     app.enableCors();
 
     //  静态资源配置
-    app.useStaticAssets(join(__dirname, 'uploads'), {
+    app.useStaticAssets(join(__dirname, 'static'), {
         prefix: '/static'
     })
 

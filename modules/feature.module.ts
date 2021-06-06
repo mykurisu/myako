@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common'
-import { HelloModule } from './hello/hello.module'
-import { FileModule } from './file/file.module'
+import { ParcelModule } from './parcel/parcel.module'
 
 
 @Module({
     imports: [
-        HelloModule,
-        FileModule
+        ParcelModule
     ]
 })
 export class FeatureModule {}
