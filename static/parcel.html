@@ -96,7 +96,7 @@
                     formdata.append('orderList', this.orderList);
                     axios({
                         method: 'POST',
-                        url: 'http://localhost:8000/parcel/matchParcelCode',
+                        url: '/parcel/matchParcelCode',
                         data: formdata,
                         headers: {
                             'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
