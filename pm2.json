@@ -1,6 +1,6 @@
 {
     "apps": [{
-        "name": "fast-nest",
+        "name": "myako",
         "script": "./build/main.js"
     }]
 }

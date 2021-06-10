@@ -45,6 +45,8 @@ export class ParcelService implements OnModuleInit {
             }
         });
 
+        fs.writeFileSync(path.join(this.uploadDirPath, './now.json'), JSON.stringify(parcelJson));
+
         const order = xlsx.read(orderList[0].buffer, { type:'buffer' });
         const orderSheetNames = order.SheetNames;
         const orderWorksheet = order.Sheets[orderSheetNames[0]];
@@ -55,7 +57,6 @@ export class ParcelService implements OnModuleInit {
             const address = `${city}${region}`;
             const index = parcelJson.findIndex((parcel: any) => {
                 if (address === parcel.fullAddress) {
-                    console.log(address, parcel.fullAddress)
                     return true;
                 }
                 return false;
