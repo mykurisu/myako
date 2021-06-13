@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短链接生成器</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        #app {
+            width: 100%;
+            display: flex;
+        }
+        .content {
+            width: 600px;
+            margin: 50px auto;
+        }
+        .title {
+            text-align: center;
+            font-size: 32px;
+            line-height: 1;
+            font-weight: bold;
+            color: #666666;
+        }
+        .short-content {
+            width: 600px;
+            margin-top: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            height: 300px;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="content">
+            <p class="title">短链接生成器</p>
+            <el-input v-model="input" placeholder="请输入内容">
+                <template #append>
+                    <el-button icon="el-icon-search"></el-button>
+                </template>
+            </el-input>
+            <div class="short-content">
+                <el-empty description="暂未生成短链"></el-empty>
+            </div>
+        </div>
+    </div>
+    <script>
+        const App = {
+            data() {
+                return {
+                    input: '',
+                };
+            },
+            methods: {
+                // getFile() {
+                //     let files = this.$refs.parcelList.files[0];
+                //     this.parcelList = files;
+                // },
+                // getFile1() {
+                //     let files = this.$refs.orderList.files[0];
+                //     this.orderList = files;
+                // },
+                // submitUpload() {
+                //     const formdata = new window.FormData();
+                //     formdata.append('parcelList', this.parcelList);
+                //     formdata.append('orderList', this.orderList);
+                //     axios({
+                //         method: 'POST',
+                //         url: '/parcel/matchParcelCode',
+                //         data: formdata,
+                //         headers: {
+                //             'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+                //         }
+                //     }).then((res) => {
+                //         this.result = res.data.data.csvTitle;
+                //     })
+                // },
+            }
+        };
+        const app = Vue.createApp(App);
+        app.use(ElementPlus);
+        app.mount("#app");
+    </script>
+</body>
+
+</html>
